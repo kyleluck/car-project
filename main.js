@@ -59,6 +59,7 @@ $(function() {
     selectedStyle = style[0];
     var uvc = style[1];
     getDrillDown();
+    getColors(uvc);
     getPicture(uvc);
   });
 
@@ -202,7 +203,7 @@ $(function() {
     });
   }
 
-  function getPicture(uvc) {
+  function getColors(uvc) {
     var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Colors";
     sURL += "/" + encodeURIComponent(uvc);
     sURL += "?customerid" + "=" + encodeURIComponent("kluck2");
@@ -214,18 +215,32 @@ $(function() {
           var sTextResult = "";
           var sCategoryName = "";
           var sAllSwatches = "";
+          var interiorHTML = '';
+          var exteriorHTML = '';
+
+          console.log('color data: ', data);
           $.each(data.vehicle_colors.category_list, function () {
               sCategoryName = this.name;
               $.each(this.color_list, function () {
+                var colorName = this.name;
                   $.each(this.swatch_list, function() {
-                      if (sAllSwatches.length > 0)
-                          sAllSwatches += ",";
-                      sAllSwatches += this;
+                      // if (sAllSwatches.length > 0)
+                      //     sAllSwatches += ",";
+                      // sAllSwatches += this;
+                      if (sCategoryName === 'Exterior Colors') {
+                        exteriorHTML += "<p style='background-color:" + this + "'>" + colorName + "</p>";
+                      }
+                      else {
+                        interiorHTML += "<p style='background-color:" + this + "'>" + colorName + "</p>";
+                      }
                   });
-                  sTextResult += sCategoryName + ": " + this.name + ": " + sAllSwatches + "<br />";
+                  //sTextResult += sCategoryName + ": " + this.name + ": " + sAllSwatches + "<br />";
+                  //colors.push({category: sCategoryName, swatch: this.name, allSwatches: sAllSwatches});
               });
           });
-          console.log(sTextResult);
+          //console.log(sTextResult);
+          $('#interior-colors-panel').append(interiorHTML).slideDown();
+          $('#exterior-colors-panel').append(exteriorHTML).slideDown();
         },
         error: function (jqXHR, textStatus, errorThrown) {
           console.log('error: ' + errorThrown);
@@ -233,6 +248,25 @@ $(function() {
     });
   }
 
+  function getPicture(uvc) {
+    var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Photos";
+    sURL += "/" + encodeURIComponent(uvc);
+    sURL += "?size" + "=" + encodeURIComponent("small");
+    sURL += "&customerid" + "=" + encodeURIComponent("kluck2");
+    $("#textResult").text("");
+    $.ajax({
+        url: sURL,
+        dataType: "jsonp", // jsonp required for cross-domain access
+        type: "GET",
+        success: function (data) {
+          $("#photodiv img").remove();
+          $("#photodiv").append("<img src='" + "data:image/jpg;base64," + data.photo.file_contents + "'/>");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log('error: ' + errorThrown);
+        }
+    });
+  }
   // function getToken() {
   //   var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Token";
   //   sURL += "/" + encodeURIComponent("Get");
