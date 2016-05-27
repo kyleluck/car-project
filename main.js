@@ -33,23 +33,29 @@ $(function() {
     $('.panel').slideUp();
     $('.clean').html('');
     selectedYear = $(this).val();
-    $('#make-select').prop("disabled", false);
+    $('#make-select').prop("disabled", false)
   });
 
   $('#make-select').change(function() {
     event.preventDefault();
+    $('#model-select').html('');
+    $('#series-select').html('');
+    $('#style-select').html('');
     selectedMake = $(this).val();
     populateDropDown(selectedYear, selectedMake);
   });
 
   $('#model-select').change(function() {
     event.preventDefault();
+    $('#series-select').html('');
+    $('#style-select').html('');
     selectedModel = $(this).val();
     populateDropDown(selectedYear, selectedMake, selectedModel);
   });
 
   $('#series-select').change(function() {
     event.preventDefault();
+    $('#style-select').html('');
     selectedSeries = $(this).val();
     populateDropDown(selectedYear, selectedMake, selectedModel, selectedSeries);
   });
@@ -253,7 +259,7 @@ $(function() {
   function getPicture(uvc) {
     var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Photos";
     sURL += "/" + encodeURIComponent(uvc);
-    sURL += "?size" + "=" + encodeURIComponent("medium");
+    sURL += "?size" + "=" + encodeURIComponent("large");
     sURL += "&customerid" + "=" + encodeURIComponent("kluck2");
     $("#textResult").text("");
     $.ajax({
@@ -262,7 +268,12 @@ $(function() {
         type: "GET",
         success: function (data) {
           $("#photodiv img").remove();
-          $("#photodiv").append("<img src='" + "data:image/jpg;base64," + data.photo.file_contents + "'/>");
+          if (data.photo.file_contents != undefined) {
+            $("#photodiv").append("<img src='" + "data:image/jpg;base64," + data.photo.file_contents + "'/>");
+          }
+          else {
+            $("#photodiv").append("<p>Photo not available</p>");
+          }
         },
         error: function (jqXHR, textStatus, errorThrown) {
           console.log('error: ' + errorThrown);
