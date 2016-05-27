@@ -22,7 +22,10 @@ $(function() {
     $('.panel').slideUp();
     $('.clean').html('');
     var vin = $('#vin-search').val();
-    getVinDetails(vin);
+    getVinDetails(vin, function(uvc) {
+      getColors(uvc);
+      getPicture(uvc);
+    });
   });
 
   $('#year-select').change(function() {
@@ -89,7 +92,6 @@ $(function() {
           var buildSeries = "<option value='NA'>Select a Series</option>";
           var buildStyle = "<option value='NA'>Select a Style</option>";
 
-          //console.log(data);
           $.each(data.drilldown.class_list, function () {
               sClassName = this.name;
               $.each(this.year_list, function () {
@@ -127,7 +129,7 @@ $(function() {
   }
 
   //call API with VIN
-  function getVinDetails(vin) {
+  function getVinDetails(vin, callback) {
     var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/UsedVehicle";
     sURL += "/" + encodeURIComponent("VIN");
     sURL += "/" + encodeURIComponent(vin);
@@ -138,13 +140,15 @@ $(function() {
       dataType: 'jsonp',
       type: 'GET',
       success: function(data) {
-        //console.log(data);
         displayVehicleData(data);
+        var uvc = data.used_vehicles.used_vehicle_list[0].uvc;
+        callback(uvc);
       },
       error: function(errorThrown) {
         console.log('error is ' + errorThrown);
       }
     });
+
   }
 
   function getDrillDown() {
@@ -160,7 +164,6 @@ $(function() {
         dataType: "jsonp", // jsonp required for cross-domain access
         type: "GET",
         success: function (data) {
-          //console.log('drilldown data: ', data);
           displayVehicleData(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -215,7 +218,6 @@ $(function() {
           var interiorHTML = '';
           var exteriorHTML = '';
 
-          console.log('color data: ', data);
           $.each(data.vehicle_colors.category_list, function () {
               sCategoryName = this.name;
               $.each(this.color_list, function () {
@@ -268,7 +270,7 @@ $(function() {
     });
   }
 
-  
+
   // function getToken() {
   //   var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Token";
   //   sURL += "/" + encodeURIComponent("Get");
