@@ -1,3 +1,18 @@
 * {
   font-family: 'Arimo', sans-serif;
+  box-sizing: border-box;
+}
+body {
+  margin-top: 10px;
+}
+.drilldown {
+  margin-top: 10px;
+  width: 17%;
+  padding: 5px;
+  font-size: 1.2em;
+  line-height: 1;
+  border: 0;
+  border-radius: 0;
+  height: 35px;
+  -webkit-appearance: none;
 }

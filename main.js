@@ -187,14 +187,14 @@ $(function() {
       sTextResult = this.model_year + " " + this.make + " " + this.model + " " + this.series + " " + this.style + "<br />";
       $('#vehicle-results').append('<h1>' + sTextResult + '</h1>');
 
-      sPrivateValues = "<p>Private Party Clean: $" + this.adjusted_private_clean + "</p>";
-      sPrivateValues += "<p>Private Party Average: $" + this.adjusted_private_avg + "</p>";
-      sPrivateValues += "<p>Private Party Rough: $" + this.adjusted_private_rough + "</p>";
+      sPrivateValues = "<p>Private Party Clean: $" + this.adjusted_private_clean.toLocaleString() + "</p>";
+      sPrivateValues += "<p>Private Party Average: $" + this.adjusted_private_avg.toLocaleString() + "</p>";
+      sPrivateValues += "<p>Private Party Rough: $" + this.adjusted_private_rough.toLocaleString() + "</p>";
       $('#private-party').append(sPrivateValues);
 
-      sTradeInValues = "<p>Trade-In Clean: $" + this.adjusted_tradein_clean + "</p>";
-      sTradeInValues += "<p>Trade-In Average: $" + this.adjusted_tradein_avg + "</p>";
-      sTradeInValues += "<p>Trade-In Rough: $" + this.adjusted_tradein_rough + "</p>";
+      sTradeInValues = "<p>Trade-In Clean: $" + this.adjusted_tradein_clean.toLocaleString() + "</p>";
+      sTradeInValues += "<p>Trade-In Average: $" + this.adjusted_tradein_avg.toLocaleString() + "</p>";
+      sTradeInValues += "<p>Trade-In Rough: $" + this.adjusted_tradein_rough.toLocaleString() + "</p>";
       $('#trade-in').append(sTradeInValues);
 
       sFeatures = "<p>MPG: " + this.city_mpg + "/" + this.hwy_mpg + "</p>";
