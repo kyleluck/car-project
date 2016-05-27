@@ -9,11 +9,12 @@ Test VINS
 2002 Audi A4: WAULT68E12A155612
 */
 $(function() {
-  $('#private-party-panel').hide();
-  $('#trade-in-panel').hide();
+  $('.panel').hide();
 
   $('#search-form').submit(function(event) {
     event.preventDefault();
+    $('.panel').slideUp();
+    $('.clean').html('');
     var vin = $('#vin-search').val();
     getVinDetails(vin);
   });
@@ -36,6 +37,10 @@ $(function() {
       success: function(data) {
         console.log(data);
         var sTextResult = "";
+        var sPrivateValues = "";
+        var sTradeInValues = "";
+        var sFeatures = "";
+
         $.each(data.used_vehicles.used_vehicle_list, function () {
           sTextResult = this.model_year + " " + this.make + " " + this.model + " " + this.series + " " + this.style + "<br />";
           $('#vehicle-results').append('<h1>' + sTextResult + '</h1>');
@@ -44,15 +49,23 @@ $(function() {
           sPrivateValues += "<p>Private Party Average: $" + this.adjusted_private_avg + "</p>";
           sPrivateValues += "<p>Private Party Rough: $" + this.adjusted_private_rough + "</p>";
           $('#private-party').append(sPrivateValues);
-          $('#private-party-panel').slideDown();
+          //$('#private-party-panel').slideDown();
 
           sTradeInValues = "<p>Trade-In Clean: $" + this.adjusted_tradein_clean + "</p>";
           sTradeInValues += "<p>Trade-In Average: $" + this.adjusted_tradein_avg + "</p>";
           sTradeInValues += "<p>Trade-In Rough: $" + this.adjusted_tradein_rough + "</p>";
           $('#trade-in').append(sTradeInValues);
-          $('#trade-in-panel').slideDown();
+          //$('#trade-in-panel').slideDown();
 
-          sData = "<p></p>";
+          sFeatures = "<p>MPG: " + this.city_mpg + "/" + this.hwy_mpg + "</p>";
+          sFeatures += "<p>Horsepower: " + this.base_hp + "</p>";
+          sFeatures += "<p>Airbags: " + this.airbags + "</p>";
+          sFeatures += "<p>Basic Warranty: " + this.basic_warranty + "</p>";
+          $('#features').append(sFeatures);
+          //$('#features-panel').slideDown();
+
+          //show all panels with slideDown()
+          $('.panel').slideDown();
 
         });
         console.log(sTextResult);
