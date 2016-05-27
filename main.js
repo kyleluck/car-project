@@ -135,17 +135,10 @@ $(function() {
 
     $.ajax({
       url: sURL,
-      beforeSend : function(req) {
-        // do nothing before send right now
-      },
       dataType: 'jsonp',
       type: 'GET',
       success: function(data) {
         //console.log(data);
-        var sTextResult = "";
-        var sPrivateValues = "";
-        var sTradeInValues = "";
-        var sFeatures = "";
         displayVehicleData(data);
       },
       error: function(errorThrown) {
@@ -177,6 +170,10 @@ $(function() {
   }
 
   function displayVehicleData(data) {
+    var sPrivateValues = "";
+    var sTradeInValues = "";
+    var sFeatures = "";
+
     $.each(data.used_vehicles.used_vehicle_list, function () {
       sTextResult = this.model_year + " " + this.make + " " + this.model + " " + this.series + " " + this.style + "<br />";
       $('#vehicle-results').append('<h1>' + sTextResult + '</h1>');
@@ -270,6 +267,8 @@ $(function() {
         }
     });
   }
+
+  
   // function getToken() {
   //   var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Token";
   //   sURL += "/" + encodeURIComponent("Get");
