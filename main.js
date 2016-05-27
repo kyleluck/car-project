@@ -224,21 +224,16 @@ $(function() {
               $.each(this.color_list, function () {
                 var colorName = this.name;
                   $.each(this.swatch_list, function() {
-                      // if (sAllSwatches.length > 0)
-                      //     sAllSwatches += ",";
-                      // sAllSwatches += this;
-                      if (sCategoryName === 'Exterior Colors') {
-                        exteriorHTML += "<p style='background-color:" + this + "'>" + colorName + "</p>";
-                      }
-                      else {
-                        interiorHTML += "<p style='background-color:" + this + "'>" + colorName + "</p>";
-                      }
+                    var fontColor = calcFontColor(this);
+                    if (sCategoryName === 'Exterior Colors') {
+                      exteriorHTML += "<p style='background-color:" + this + ";color:" + fontColor + "'>" + colorName + "</p>";
+                    }
+                    else {
+                      interiorHTML += "<p style='background-color:" + this + ";color:" + fontColor + "'>" + colorName + "</p>";
+                    }
                   });
-                  //sTextResult += sCategoryName + ": " + this.name + ": " + sAllSwatches + "<br />";
-                  //colors.push({category: sCategoryName, swatch: this.name, allSwatches: sAllSwatches});
               });
           });
-          //console.log(sTextResult);
           $('#interior-colors-panel').append(interiorHTML).slideDown();
           $('#exterior-colors-panel').append(exteriorHTML).slideDown();
         },
@@ -246,6 +241,14 @@ $(function() {
           console.log('error: ' + errorThrown);
         }
     });
+  }
+  function calcFontColor(hexcolor) {
+    hexcolor = hexcolor.substr(1,7);
+    var r = parseInt(hexcolor.substr(0,2),16);
+    var g = parseInt(hexcolor.substr(2,2),16);
+    var b = parseInt(hexcolor.substr(4,2),16);
+    var yiq = ((r*299)+(g*587)+(b*114))/1000;
+    return (yiq >= 128) ? 'black' : 'white';
   }
 
   function getPicture(uvc) {
