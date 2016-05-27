@@ -1,11 +1,7 @@
 /*
 Test VINS
 2013 Acura MDX: 2HNYD2H42DH504765
-
-1998 Subaru Legacy GT: 4S3BD6753W7208861
-
 2015 mercedes-benz glk 250: WDCGG0EB8FG358249
-
 2002 Audi A4: WAULT68E12A155612
 */
 $(function() {
@@ -58,12 +54,15 @@ $(function() {
   $('#style-select').change(function() {
     event.preventDefault();
     selectedStyle = $(this).val();
+    //split style on |. left side is style, right side is UVC
+    var style = selectedStyle.split("|");
+    selectedStyle = style[0];
+    var uvc = style[1];
     getDrillDown();
+    getPicture(uvc);
   });
 
   function populateDropDown(selectedYear, selectedMake, selectedModel, selectedSeries) {
-    console.log('model: ' + selectedModel);
-    //return;
     var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Drilldown";
     sURL += "/" + encodeURIComponent("ALL");
     sURL += "/" + encodeURIComponent(selectedYear);
@@ -89,7 +88,7 @@ $(function() {
           var buildSeries = "<option value='NA'>Select a Series</option>";
           var buildStyle = "<option value='NA'>Select a Style</option>";
 
-          console.log(data);
+          //console.log(data);
           $.each(data.drilldown.class_list, function () {
               sClassName = this.name;
               $.each(this.year_list, function () {
@@ -103,7 +102,7 @@ $(function() {
                           buildSeries += "<option value='" + this.name + "'>" + this.name + "</option>";
                           if (selectedSeries != undefined) {
                             $.each(this.style_list, function() {
-                              buildStyle += "<option value='" + this.name + "'>" + this.name + "</option>";
+                              buildStyle += "<option value='" + this.name + "|" + this.uvc + "'>" + this.name + "</option>";
                             });
                           }
                         });
@@ -141,7 +140,7 @@ $(function() {
       dataType: 'jsonp',
       type: 'GET',
       success: function(data) {
-        console.log(data);
+        //console.log(data);
         var sTextResult = "";
         var sPrivateValues = "";
         var sTradeInValues = "";
@@ -167,13 +166,7 @@ $(function() {
         dataType: "jsonp", // jsonp required for cross-domain access
         type: "GET",
         success: function (data) {
-          console.log('drilldown data: ', data);
-          // var sTextResult = "";
-          // var sMakeName = "";
-          // var sYearName = "";
-          // $.each(data.used_vehicles.used_vehicle_list, function () {
-          //     sTextResult += this.model_year + " " + this.make + " " + this.model + " " + this.series + " " + this.style + "<br />";
-          // });
+          //console.log('drilldown data: ', data);
           displayVehicleData(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -208,6 +201,38 @@ $(function() {
       $('.panel').slideDown();
     });
   }
+
+  function getPicture(uvc) {
+    var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Colors";
+    sURL += "/" + encodeURIComponent(uvc);
+    sURL += "?customerid" + "=" + encodeURIComponent("kluck2");
+    $.ajax({
+        url: sURL,
+        dataType: "jsonp", // jsonp required for cross-domain access
+        type: "GET",
+        success: function (data) {
+          var sTextResult = "";
+          var sCategoryName = "";
+          var sAllSwatches = "";
+          $.each(data.vehicle_colors.category_list, function () {
+              sCategoryName = this.name;
+              $.each(this.color_list, function () {
+                  $.each(this.swatch_list, function() {
+                      if (sAllSwatches.length > 0)
+                          sAllSwatches += ",";
+                      sAllSwatches += this;
+                  });
+                  sTextResult += sCategoryName + ": " + this.name + ": " + sAllSwatches + "<br />";
+              });
+          });
+          console.log(sTextResult);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log('error: ' + errorThrown);
+        }
+    });
+  }
+
   // function getToken() {
   //   var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Token";
   //   sURL += "/" + encodeURIComponent("Get");
