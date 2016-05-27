@@ -233,8 +233,8 @@ $(function() {
                   });
               });
           });
-          $('#interior-colors-panel').append(interiorHTML).slideDown();
-          $('#exterior-colors-panel').append(exteriorHTML).slideDown();
+          $('#interior-colors').append(interiorHTML).slideDown();
+          $('#exterior-colors').append(exteriorHTML).slideDown();
         },
         error: function (jqXHR, textStatus, errorThrown) {
           console.log('error: ' + errorThrown);
