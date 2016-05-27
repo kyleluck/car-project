@@ -19,3 +19,6 @@ body {
 .drilldown:hover {
   background-color: #6689A1;
 }
+#photodiv {
+  text-align: center;
+}

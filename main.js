@@ -251,7 +251,7 @@ $(function() {
   function getPicture(uvc) {
     var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/Photos";
     sURL += "/" + encodeURIComponent(uvc);
-    sURL += "?size" + "=" + encodeURIComponent("small");
+    sURL += "?size" + "=" + encodeURIComponent("medium");
     sURL += "&customerid" + "=" + encodeURIComponent("kluck2");
     $("#textResult").text("");
     $.ajax({
