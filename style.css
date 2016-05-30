@@ -6,7 +6,6 @@ body {
   margin-top: 10px;
 }
 .drilldown {
-  margin-top: 10px;
   width: 17%;
   padding: 5px;
   font-size: 1.2em;
@@ -32,4 +31,7 @@ body {
 }
 #pdf-button {
   margin: 0 0 15px 20px;
+}
+.tab-content {
+  margin-top: 15px;
 }

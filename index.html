@@ -18,7 +18,14 @@
     <div class="container">
       <div class="row">
         <div class="col col-sm-12">
-          <form id="vin-search-form">
+          <nav>
+            <ul class="nav nav-pills">
+              <li role="presentation" class="active"><a data-toggle="pill" href="#drilldown-search-form">Drilldown Search</a></li>
+              <li role="presentation"><a data-toggle="pill" href="#vin-search-form">VIN Search</a></li>
+            </ul>
+          </nav>
+          <div class="tab-content">
+          <form id="vin-search-form" class="tab-pane fade">
             <div class="input-group">
               <input type="text" class="form-control" id="vin-search" placeholder="Enter a VIN...">
               <span class="input-group-btn">
@@ -26,7 +33,7 @@
               </span>
             </div> <!-- /input-group -->
           </form> <!-- end form -->
-          <form id="drilldown-search-form">
+          <form id="drilldown-search-form" class="tab-pane fade in active">
             <select class="drilldown" id="year-select" name="">
               <option value="NA">Select a Year</option>
               <option value="2016">2016</option>
@@ -52,10 +59,11 @@
             <select class="drilldown" id="style-select" name="">
             </select>
           </form> <!-- end form -->
+        </div>
         </div> <!-- end column -->
       </div> <!-- end row -->
       <div class="row">
-        <div id="vehicle-results" class="col col-xs-12"></div>
+        <div id="vehicle-results" class="col col-xs-12 clean"></div>
 
         <div id="modal-button">
           <!-- Button trigger modal -->
