@@ -25,6 +25,7 @@ $(function() {
     getVinDetails(vin, function(uvc) {
       getColors(uvc);
       getPicture(uvc);
+      getPDF(uvc);
     });
   });
 
@@ -70,6 +71,7 @@ $(function() {
     getDrillDown();
     getColors(uvc);
     getPicture(uvc);
+    getPDF(uvc);
   });
 
   function populateDropDown(selectedYear, selectedMake, selectedModel, selectedSeries) {
@@ -277,6 +279,23 @@ $(function() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
           console.log('error: ' + errorThrown);
+        }
+    });
+  }
+
+  function getPDF(uvc) {
+    var sURL = "https://service.blackbookcloud.com/UsedCarWS/UsedCarWS/PDFSpecs";
+    sURL += "/" + encodeURIComponent(uvc);
+    sURL += "?customerid" + "=" + encodeURIComponent("kluck2");
+    $.ajax({
+        url: sURL,
+        dataType: "jsonp", // jsonp required for cross-domain access
+        type: "GET",
+        success: function (data) {
+            $("#pdf-div").html("<embed src='" + "data:application/pdf;base64," + data.spec_pdf.file_contents + "' width=\"850\" height=\"1050\">/>");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("An error occurred: " + errorThrown);
         }
     });
   }
