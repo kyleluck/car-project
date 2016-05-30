@@ -18,48 +18,50 @@
     <div class="container">
       <div class="row">
         <div class="col col-sm-12">
-          <nav>
-            <ul class="nav nav-pills">
-              <li role="presentation" class="active"><a data-toggle="pill" href="#drilldown-search-form">Drilldown Search</a></li>
-              <li role="presentation"><a data-toggle="pill" href="#vin-search-form">VIN Search</a></li>
-            </ul>
-          </nav>
-          <div class="tab-content">
-          <form id="vin-search-form" class="tab-pane fade">
-            <div class="input-group">
-              <input type="text" class="form-control" id="vin-search" placeholder="Enter a VIN...">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-              </span>
-            </div> <!-- /input-group -->
-          </form> <!-- end form -->
-          <form id="drilldown-search-form" class="tab-pane fade in active">
-            <select class="drilldown" id="year-select" name="">
-              <option value="NA">Select a Year</option>
-              <option value="2016">2016</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-              <option value="2013">2013</option>
-              <option value="2012">2012</option>
-              <option value="2011">2011</option>
-            </select>
-            <select class="drilldown" id="make-select" name="">
-              <option value="NA">Select a Make</option>
-              <option value="Acura">Acura</option>
-              <option value="BMW">BMW</option>
-              <option value="Ford">Ford</option>
-              <option value="Kia">Kia</option>
-              <option value="Hyundai">Hyundai</option>
-              <option value="Toyota">Toyota</option>
-            </select>
-            <select class="drilldown" id="model-select" name="">
-            </select>
-            <select class="drilldown" id="series-select" name="">
-            </select>
-            <select class="drilldown" id="style-select" name="">
-            </select>
-          </form> <!-- end form -->
-        </div>
+          <div class="jumbotron">
+            <nav>
+              <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a data-toggle="pill" href="#drilldown-search-form">Drilldown Search</a></li>
+                <li role="presentation"><a data-toggle="pill" href="#vin-search-form">VIN Search</a></li>
+              </ul>
+            </nav>
+            <div class="tab-content">
+              <form id="vin-search-form" class="tab-pane fade">
+              <div class="input-group">
+                <input type="text" class="form-control" id="vin-search" placeholder="Enter a VIN...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+              </div> <!-- /input-group -->
+              </form> <!-- end form -->
+              <form id="drilldown-search-form" class="tab-pane fade in active">
+                <select class="drilldown" id="year-select" name="">
+                  <option value="NA">Select a Year</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                </select>
+                <select class="drilldown" id="make-select" name="">
+                  <option value="NA">Select a Make</option>
+                  <option value="Acura">Acura</option>
+                  <option value="BMW">BMW</option>
+                  <option value="Ford">Ford</option>
+                  <option value="Kia">Kia</option>
+                  <option value="Hyundai">Hyundai</option>
+                  <option value="Toyota">Toyota</option>
+                </select>
+                <select class="drilldown" id="model-select" name="">
+                </select>
+                <select class="drilldown" id="series-select" name="">
+                </select>
+                <select class="drilldown" id="style-select" name="">
+                </select>
+              </form> <!-- end form -->
+            </div> <!-- end tab content -->
+          </div> <!-- end jumbotron -->
         </div> <!-- end column -->
       </div> <!-- end row -->
       <div class="row">
@@ -67,7 +69,7 @@
 
         <div id="modal-button">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-md" id="pdf-button" data-toggle="modal" data-target="#myModal">
+          <button type="button" class="btn btn-info btn-md" id="pdf-button" data-toggle="modal" data-target="#myModal">
             View Specifications <span class="glyphicon glyphicon-paperclip"></span>
           </button>
 
