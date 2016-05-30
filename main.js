@@ -13,7 +13,7 @@ $(function() {
 
   $('#modal-button').hide();
   $('.panel').hide();
-  $('#make-select').prop("disabled", true);
+  $('#make-select').hide();
   $('#model-select').hide();
   $('#series-select').hide();
   $('#style-select').hide();
@@ -32,6 +32,7 @@ $(function() {
 
   $('#year-select').change(function() {
     event.preventDefault();
+    $('#make-select').show();
     $('.panel').slideUp();
     $('.clean').html('');
     selectedYear = $(this).val();
