@@ -36,7 +36,6 @@ $(function() {
     $('.panel').slideUp();
     $('.clean').html('');
     selectedYear = $(this).val();
-    $('#make-select').prop("disabled", false)
   });
 
   $('#make-select').change(function() {
@@ -294,8 +293,9 @@ $(function() {
         dataType: "jsonp", // jsonp required for cross-domain access
         type: "GET",
         success: function (data) {
-            $("#pdf-div").html("<embed src='" + "data:application/pdf;base64," + data.spec_pdf.file_contents + "' width=\"875\" height=\"1050\">");
-            $('#modal-button').show();
+          //$("#pdf-div").html("<embed src='" + "data:application/pdf;base64," + data.spec_pdf.file_contents + "' width=\"875\" height=\"1050\">");
+          $("#pdf-div").html("<embed src='" + "data:application/pdf;base64," + data.spec_pdf.file_contents + "' style=\"width:100%; height:100%; display:block;\">");
+          $('#modal-button').show();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("An error occurred: " + errorThrown);

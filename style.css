@@ -24,8 +24,12 @@ body {
   color: white;
 }
 .modal-dialog {
-  width: 900px;
   text-align: center;
+}
+@media (min-width: 768px) {
+  .modal-body {
+    height: 500px;
+  }
 }
 #pdf-button {
   margin: 0 0 15px 20px;
