@@ -11,6 +11,7 @@ $(function() {
   var selectedSeries = '';
   var selectedStyle = '';
 
+  $('#modal-button').hide();
   $('.panel').hide();
   $('#make-select').prop("disabled", true);
   $('#model-select').hide();
@@ -292,7 +293,8 @@ $(function() {
         dataType: "jsonp", // jsonp required for cross-domain access
         type: "GET",
         success: function (data) {
-            $("#pdf-div").html("<embed src='" + "data:application/pdf;base64," + data.spec_pdf.file_contents + "' width=\"850\" height=\"1050\">/>");
+            $("#pdf-div").html("<embed src='" + "data:application/pdf;base64," + data.spec_pdf.file_contents + "' width=\"875\" height=\"1050\">");
+            $('#modal-button').show();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("An error occurred: " + errorThrown);

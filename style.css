@@ -26,3 +26,7 @@ body {
   background: #6689A1;
   color: white;
 }
+.modal-dialog {
+  width: 900px;
+  text-align: center;
+}
